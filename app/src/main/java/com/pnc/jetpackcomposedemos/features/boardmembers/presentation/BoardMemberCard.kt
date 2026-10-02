@@ -1,4 +1,4 @@
-package com.pnc.jetpackcomposedemos
+package com.pnc.jetpackcomposedemos.features.boardmembers.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,13 +10,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pnc.jetpackcomposedemos.features.boardmembers.domain.BoardMember
 import com.pnc.jetpackcomposedemos.ui.theme.JetpackComposeDemosTheme
 
 @Composable
-fun BoardMemberCard(member: BoardMember) {
+fun BoardMemberCard(
+    member: BoardMember,
+    onClick: () -> Unit = {}
+) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        onClick = onClick
     ) {
         Column (
             modifier = Modifier.padding(16.dp)
@@ -25,7 +30,7 @@ fun BoardMemberCard(member: BoardMember) {
                 text = "${member.firstName} ${member.lastName}",
                 style = MaterialTheme.typography.titleMedium
             )
-            Text("Title: ${member.title}}")
+            Text("Title: ${member.title}")
         }
     }
 
@@ -40,8 +45,6 @@ fun BoardMemberCardPreview() {
         "billy",
         "bob",
         "monarch",
-        "M",
-        "",
         "",
         "he's bob"
     )
