@@ -106,15 +106,18 @@ fun ArtistDirectory(
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Select an artist to view their details")
+                    Text("Selected Artist")
+                    val selectedArtist = state.selectedArtist
                     AnimatedVisibility(
                         visible = state.selectedArtist != null,
                         enter = fadeIn() + expandVertically(expandFrom = Alignment.Top),
                         exit = fadeOut() + shrinkVertically(shrinkTowards = Alignment.Top)
                     ) {
-                        ArtistDetails(
-                            artist = state.selectedArtist!!
-                        )
+                        if(selectedArtist != null) {
+                            ArtistDetails(
+                                artistId = selectedArtist.id
+                            )
+                        }
                     }
 
                 }
@@ -193,13 +196,13 @@ fun ArtistDirectory(
 @Composable
 fun CompactArtistDirectoryPreview() {
     ArtistDirectory(
-        state = ArtistDirectoryState(Artist.getArtists()),
+        state = ArtistDirectoryState(),
         useTwoPaneLayout = false
     )
 }
 
 @Preview(
-    name = "Expenaded View",
+    name = "Expanded View",
     widthDp = 900,
     heightDp = 844
 )
@@ -207,7 +210,7 @@ fun CompactArtistDirectoryPreview() {
 @Composable
 fun ExpandedArtistDirectoryPreview(){
     ArtistDirectory(
-        state = ArtistDirectoryState(Artist.getArtists()),
+        state = ArtistDirectoryState(),
         useTwoPaneLayout = true
     )
 }

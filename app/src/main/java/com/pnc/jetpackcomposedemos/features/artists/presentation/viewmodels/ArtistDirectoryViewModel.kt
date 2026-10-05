@@ -1,23 +1,38 @@
 package com.pnc.jetpackcomposedemos.features.artists.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
+import com.pnc.jetpackcomposedemos.features.artists.domain.GetAvailableArtistsUseCase
 import com.pnc.jetpackcomposedemos.features.artists.presentation.state.ArtistDirectoryState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class ArtistDirectoryViewModel: ViewModel() {
+class ArtistDirectoryViewModel(
+    private val getAvailableArtists: GetAvailableArtistsUseCase = GetAvailableArtistsUseCase()
+): ViewModel() {
     // keep the actual mutable state value private
     private val _uiState = MutableStateFlow(
-        ArtistDirectoryState(
-            artists = Artist.getArtists()
-        )
+        ArtistDirectoryState()
     )
 
     // expose (publicly) a read only view of the state object
     val uiState: StateFlow<ArtistDirectoryState> = _uiState.asStateFlow()
+
+    fun loadArtists() {
+        // call an async data loading method in a non-async method
+        viewModelScope.launch {
+            val artists = getAvailableArtists()
+            _uiState.update { currentState ->
+                currentState.copy(
+                    artists = artists
+                )
+            }
+        }
+    }
 
     fun updateGenreFilter(genre: String) {
         // change the state in a way that prevent race conditions

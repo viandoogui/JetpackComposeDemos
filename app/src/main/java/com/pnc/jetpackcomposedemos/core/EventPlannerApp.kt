@@ -13,7 +13,7 @@ import androidx.navigation.toRoute
 import androidx.window.core.layout.WindowSizeClass
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.features.artists.presentation.composables.ArtistDetails
-import com.pnc.jetpackcomposedemos.features.artists.domain.ArtistDirectoryRoute
+import com.pnc.jetpackcomposedemos.features.artists.presentation.composables.ArtistDirectoryRoute
 import com.pnc.jetpackcomposedemos.features.auth.domain.AuthState
 import com.pnc.jetpackcomposedemos.features.auth.presentation.AuthViewModel
 import com.pnc.jetpackcomposedemos.features.auth.presentation.LoginScreen
@@ -34,7 +34,6 @@ fun EventPlannerApp(
     )
 
     val navController = rememberNavController()
-    val artists = Artist.getArtists()
     val boardMembers = BoardMember.getBoardMembers()
 
     when (authState) {
@@ -94,13 +93,7 @@ fun EventPlannerApp(
                     val route = backStackEntry.toRoute<ArtistDetailsRoute>()
                     val artistId = route.artistId
 
-                    val artist = artists.find { it.id == artistId }
-
-                    if (artist != null) {
-                        ArtistDetails(artist = artist)
-                    } else {
-                        Text("Artist not found")
-                    }
+                    ArtistDetails(artistId = artistId)
                 }
 
                 composable<BoardMemberDetailsRoute> { backStackEntry ->
@@ -117,14 +110,14 @@ fun EventPlannerApp(
 
                 }
 
-                composable<LegacyArtistListRoute> {
-                    LegacyArtistList(
-                        artists = artists,
-                        onArtistSelected = { artistId ->
-                            navController.navigate(ArtistDetailsRoute(artistId))
-                        }
-                    )
-                }
+//                composable<LegacyArtistListRoute> {
+//                    LegacyArtistList(
+//                        artists = artists,
+//                        onArtistSelected = { artistId ->
+//                            navController.navigate(ArtistDetailsRoute(artistId))
+//                        }
+//                    )
+//                }
 
             }
 

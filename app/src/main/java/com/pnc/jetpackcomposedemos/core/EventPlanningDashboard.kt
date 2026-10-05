@@ -40,12 +40,12 @@ fun EventPlanningDashboard(
             Text("View Board Members")
         }
 
-        Button(
-            onClick = onLegacyArtists,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("View Legacy Artistss")
-        }
+//        Button(
+//            onClick = onLegacyArtists,
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text("View Legacy Artists")
+//        }
 
     }
 

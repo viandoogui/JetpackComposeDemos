@@ -101,7 +101,7 @@ fun ArtistCardPreview() {
         location = "Location",
         imageUrl = "",
         description = "",
-        tags = ""
+        isAvailable = true,
     )
     JetpackComposeDemosTheme() {
         ArtistCard(
