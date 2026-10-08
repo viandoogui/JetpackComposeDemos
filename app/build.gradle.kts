@@ -2,6 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.androidx.room)
+}
+
+room {
+    schemaDirectory("${projectDir}/schemas")
 }
 
 android {
@@ -20,6 +27,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", "\"https://kazoopromotions.com/api/\"")
+        buildConfigField("String", "AW_BASE_URL", "\"https://api.bootcampcentral.com/api/\"")
     }
 
     buildTypes {
@@ -35,6 +44,8 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+        buildConfig = true
     }
 
     buildFeatures {
@@ -75,5 +86,12 @@ dependencies {
     implementation(libs.androidx.material.icons)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.bundles.lifecycle)
-
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.okhttp)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 }

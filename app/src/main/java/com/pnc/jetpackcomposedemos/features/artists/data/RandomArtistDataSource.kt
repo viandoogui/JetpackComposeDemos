@@ -1,6 +1,10 @@
 package com.pnc.jetpackcomposedemos.features.artists.data
 
-class RandomArtistDataSource : ArtistDataSource {
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class RandomArtistDataSource @Inject constructor(): ArtistDataSource {
 
     override suspend fun getArtists(): List<ArtistDto> {
         return List(100) { index ->
@@ -16,6 +20,18 @@ class RandomArtistDataSource : ArtistDataSource {
             )
 
         }
+    }
+
+    override suspend fun getArtist(id: Int): ArtistDto? {
+       return ArtistDto(
+           id = id,
+           name = "Artist ${id}",
+           genre = listOf("Rock", "Pop", "Jazz", "Acoustic", "Classical").random(),
+           location = listOf("New York", "Los Angeles", "Chicago").random(),
+           imageUrl = "/images/fakeimage.jpg",
+           description = "Some fake details",
+           tags = "tags,tags,tags"
+       )
     }
 
 }

@@ -5,14 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.features.artists.domain.GetAvailableArtistsUseCase
 import com.pnc.jetpackcomposedemos.features.artists.presentation.state.ArtistDirectoryState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ArtistDirectoryViewModel(
-    private val getAvailableArtists: GetAvailableArtistsUseCase = GetAvailableArtistsUseCase()
+@HiltViewModel
+class ArtistDirectoryViewModel @Inject constructor(
+    private val getAvailableArtists: GetAvailableArtistsUseCase
 ): ViewModel() {
     // keep the actual mutable state value private
     private val _uiState = MutableStateFlow(

@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.pnc.jetpackcomposedemos.core.LoadableState
@@ -28,7 +29,7 @@ import com.pnc.jetpackcomposedemos.ui.theme.JetpackComposeDemosTheme
 @Composable
 fun ArtistDetails(
     artistId: Int,
-    viewModel: ArtistDetailsViewModel = viewModel()
+    viewModel: ArtistDetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
 
