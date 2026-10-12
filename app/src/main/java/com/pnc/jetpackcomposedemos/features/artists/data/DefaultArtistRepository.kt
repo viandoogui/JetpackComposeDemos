@@ -2,6 +2,8 @@ package com.pnc.jetpackcomposedemos.features.artists.data
 
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.features.artists.domain.ArtistRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,14 +11,17 @@ import javax.inject.Singleton
 class DefaultArtistRepository @Inject constructor (
     private val dataSource: ArtistDataSource
 ): ArtistRepository {
-    override suspend fun getArtists(): List<Artist> {
-        return dataSource.getArtists().map{ artistDto ->
-            ArtistMapper.mapToDomain(artistDto)
-        }
+    override fun observeArtists(): Flow<List<Artist>> = flow {
+        emit( dataSource.getArtists().map{ artistDto ->
+                ArtistMapper.mapToDomain(artistDto)}
+        )}
+
+    override fun observeArtist(id: Int): Flow<Artist?> = flow {
+        emit(ArtistMapper.mapToDomain(dataSource.getArtist(id)))
     }
 
-    override suspend fun getArtist(id: Int): Artist? {
-        val dto = dataSource.getArtist(id) ?: return null
-        return ArtistMapper.mapToDomain(dto)
-    }
+    // Nothing is cached in this repository,
+    // so there is nothing to refresh
+    override suspend fun refreshArtists() = Unit
+    override suspend fun refreshArtist(id: Int) = Unit
 }

@@ -69,7 +69,8 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
-
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.11.0" }
+turbine = { group = "app.cash.turbine", name = "turbine", version = "1.2.1" }
 
 [bundles]
 coil = [ "coil-compose", "coil-loader" ]

@@ -3,6 +3,7 @@ package com.pnc.jetpackcomposedemos.core
 import com.pnc.jetpackcomposedemos.features.artists.data.ArtistDataSource
 import com.pnc.jetpackcomposedemos.features.artists.data.DefaultArtistRepository
 import com.pnc.jetpackcomposedemos.features.artists.data.HardCodedArtistDataSource
+import com.pnc.jetpackcomposedemos.features.artists.data.OfflineFirstArtistRepository
 import com.pnc.jetpackcomposedemos.features.artists.data.RandomArtistDataSource
 import com.pnc.jetpackcomposedemos.features.artists.domain.ArtistRepository
 import com.pnc.jetpackcomposedemos.features.orders.data.DefaultOrderRepository
@@ -32,12 +33,12 @@ abstract class AppInjectionModule {
 
     @Binds
     abstract fun bindArtistRepository(
-        implementation: DefaultArtistRepository
+        implementation: OfflineFirstArtistRepository
     ): ArtistRepository
 
     @Binds
     abstract fun bindOrderRepository(
-        implementation: LocalOnlyOrderRepository
+        implementation: DefaultOrderRepository
     ): OrderRepository
 
     @Binds
