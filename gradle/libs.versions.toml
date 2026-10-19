@@ -15,7 +15,7 @@ uiTooling = "1.12.1"
 coilVersion = "3.6.3"
 ui = "1.12.1"
 navigationCompose = "2.10.2"
-kotlinxSerializationJson = "1.7.3"
+kotlinxSerializationJson = "1.8.1"
 recyclerview = "1.4.0"
 foundationLayout = "1.12.1"
 material3 = "1.4.0"
@@ -71,6 +71,11 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.11.0" }
 turbine = { group = "app.cash.turbine", name = "turbine", version = "1.2.1" }
+espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version = "3.3.0" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hiltVersion" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "roomVersion" }
+kotlinx-coroutines-bom = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-bom", version = "1.11.0" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitVersion" }
 
 [bundles]
 coil = [ "coil-compose", "coil-loader" ]

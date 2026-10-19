@@ -65,7 +65,7 @@ fun ArtistCard(
                     painter = painterResource(
                         id = if (isFavorite) R.drawable.filled_star else R.drawable.outline_star
                     ),
-                    contentDescription = if(isFavorite) "Favorite" else "Not favorite",
+                    contentDescription = if (isFavorite) "Favorite" else "Not favorite",
                     tint = if (isFavorite)
                         MaterialTheme.colorScheme.primary
                     else
@@ -73,10 +73,8 @@ fun ArtistCard(
                     modifier = Modifier.graphicsLayer {
                         scaleX = starScale
                         scaleY = starScale
-
                     }
                 )
-
             }
             Text(
                 text = artist.name,
@@ -91,7 +89,8 @@ fun ArtistCard(
 
 }
 
-@Preview(showBackground = true)
+
+@Preview(showBackground = false)
 @Composable
 fun ArtistCardPreview() {
     val artist = Artist(
@@ -103,11 +102,11 @@ fun ArtistCardPreview() {
         description = "",
         isAvailable = true,
     )
-    JetpackComposeDemosTheme() {
+
+    JetpackComposeDemosTheme {
         ArtistCard(
             artist = artist,
             onClick = {}
         )
     }
-
 }
