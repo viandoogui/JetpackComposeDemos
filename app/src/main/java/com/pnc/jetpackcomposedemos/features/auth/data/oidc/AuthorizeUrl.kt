@@ -20,7 +20,7 @@ object AuthorizeUrl {
             .addQueryParameter("response_type", "code")
             .addQueryParameter("client_id", clientId)
             .addQueryParameter("redirect_uri", redirectUri)
-            .addQueryParameter("scopes", scopes)
+            .addQueryParameter("scope", scopes)
             .addQueryParameter("state", state)
             .addQueryParameter("nonce", nonce)
             .addQueryParameter("code_challenge", codeChallenge)

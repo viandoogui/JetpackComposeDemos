@@ -1,6 +1,7 @@
 package com.pnc.jetpackcomposedemos
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -14,16 +15,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pnc.jetpackcomposedemos.core.EventPlannerApp
 import com.pnc.jetpackcomposedemos.features.auth.data.oidc.AuthorizeUrl
+import com.pnc.jetpackcomposedemos.features.auth.data.oidc.OidcRedirects
 import com.pnc.jetpackcomposedemos.features.auth.data.oidc.Pkce
 import com.pnc.jetpackcomposedemos.ui.theme.KazooTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
 class EventPlannerApplication: Application()
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var oidcRedirects: OidcRedirects
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+
+        val uri = intent.dataString
+        if (uri != null && uri.startsWith(BuildConfig.OIDC_REDIRECT_URI)) {
+            oidcRedirects.deliver(uri)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

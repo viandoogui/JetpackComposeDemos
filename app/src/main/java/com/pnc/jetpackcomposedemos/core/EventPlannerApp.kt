@@ -20,6 +20,7 @@ import com.pnc.jetpackcomposedemos.features.artists.presentation.composables.Art
 import com.pnc.jetpackcomposedemos.features.auth.domain.AuthState
 import com.pnc.jetpackcomposedemos.features.auth.presentation.AuthViewModel
 import com.pnc.jetpackcomposedemos.features.auth.presentation.LoginScreen
+import com.pnc.jetpackcomposedemos.features.auth.presentation.SignInScreen
 import com.pnc.jetpackcomposedemos.features.boardmembers.domain.BoardMember
 import com.pnc.jetpackcomposedemos.features.boardmembers.presentation.BoardMemberDetails
 import com.pnc.jetpackcomposedemos.features.boardmembers.presentation.BoardMemberList
@@ -44,10 +45,13 @@ fun EventPlannerApp(
 
     when (authState) {
         is AuthState.Unauthenticated -> {
-            LoginScreen(
-                onLoginSuccess = { user ->
-                    viewModel.login(user)
-                }
+//            LoginScreen(
+//                onLoginSuccess = { user ->
+//                    viewModel.login(user)
+//                }
+//            )
+            SignInScreen(
+                onSignIn = { user -> viewModel.login(user)}
             )
         }
         is AuthState.Authenticated -> {

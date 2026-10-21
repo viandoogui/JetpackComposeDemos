@@ -1,12 +1,21 @@
 package com.pnc.jetpackcomposedemos.features.auth.data.oidc
 
 import com.pnc.jetpackcomposedemos.BuildConfig
+import com.pnc.jetpackcomposedemos.features.auth.domain.User
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.HttpUrl
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
-class OidcClient @Inject constructor() {
+class OidcClient @Inject constructor(
+    private val authApi: AuthApi
+) {
     private var pending: PendingSignIn? = null
 
     // create fresh secrets, remember them, and return the URL
@@ -52,5 +61,68 @@ class OidcClient @Inject constructor() {
         val code = parsed.code ?: return Result.failure(IllegalStateException("The response contained no code."))
 
         return Result.success(code)
+    }
+
+    suspend fun completeSignIn(redirect: String): Result<User> {
+        val request = pending ?: return Result.failure(
+            IllegalStateException("No sign in is in progress.")
+        )
+        val code = codeFrom(redirect).getOrElse { return Result.failure(it) }
+
+        pending = null // a code only works once, so pending is done
+
+        return try {
+            val tokens = authApi.exchangeCode(
+                grantType = "authorization_code",
+                clientId = BuildConfig.OIDC_CLIENT_ID,
+                code = code,
+                redirectUri = BuildConfig.OIDC_REDIRECT_URI,
+                codeVerifier = request.verifier
+            )
+            Result.success(userFrom(tokens, request.nonce))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: HttpException) {
+            Result.failure(IllegalStateException(describe(e), e))
+        } catch (e: IOException) {
+            Result.failure(
+                IllegalStateException("Could not reach the server. Check your connection", e)
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+
+    }
+
+    private fun userFrom(tokens: TokenResponse, nonce: String): User {
+        val idToken = tokens.idToken
+            ?: throw IllegalStateException("The server did not return an ID token.")
+
+        val claims = IdToken.parse(idToken)
+
+        // The nonce we sent must come back inside the ID token.
+        // It proves this token was issued for THIS sign-in and isn't a replay of an older
+        if (claims.nonce != nonce) {
+            throw IllegalStateException("The ID token was not issued for this sign-in (nonce mismatch).")
+        }
+
+        return User(
+            id = claims.subject,
+            username = claims.name ?: "Customer ${claims.subject}",
+            token = tokens.accessToken,
+            refreshToken = tokens.refreshToken,
+            expiresAtMillis = System.currentTimeMillis() + tokens.expiresIn * 1000
+        )
+    }
+
+    private fun describe(e: HttpException): String {
+        val body = e.response()?.errorBody()?.string().orEmpty()
+
+        val description = runCatching {
+            Json.parseToJsonElement(body).jsonObject["error_description"]?.jsonPrimitive?.content
+        }.getOrNull()
+
+        return description ?: "The server rejected the sign-in (HTTP ${e.code()})"
+
     }
 }
