@@ -33,11 +33,11 @@ fun OrderCard(
 
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Box(modifier = Modifier.padding(12.dp)) {
+                Box(modifier = Modifier.weight(2f).padding(12.dp)) {
                     OrderSummary(order = order)
                 }
                 VerticalDivider()
-                Box(modifier = Modifier.padding(12.dp)) {
+                Box(modifier = Modifier.weight(3f).padding(12.dp)) {
                     OrderLines(order = order)
                 }
 
@@ -47,11 +47,11 @@ fun OrderCard(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Box(modifier = Modifier.weight(2f).padding(12.dp)) {
+                Box(modifier = Modifier.padding(12.dp)) {
                     OrderSummary(order = order)
                 }
                 HorizontalDivider()
-                Box(modifier = Modifier.weight(2f).padding(12.dp)) {
+                Box(modifier = Modifier.padding(12.dp)) {
                     OrderLines(order = order)
                 }
 

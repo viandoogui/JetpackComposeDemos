@@ -28,7 +28,7 @@ object OidcModule {
             .apply {
                 if (BuildConfig.DEBUG) {
                     addInterceptor(HttpLoggingInterceptor().apply {
-                        level = HttpLoggingInterceptor.Level.BODY
+                        level = HttpLoggingInterceptor.Level.BASIC
                         // BASIC not BODY b/c BODY would print access and refresh tokens to Logcat
                     })
                 }
