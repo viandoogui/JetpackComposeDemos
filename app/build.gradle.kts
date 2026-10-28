@@ -116,4 +116,5 @@ dependencies {
     androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.browser)
+    implementation(libs.androidx.datastore.preferences)
 }

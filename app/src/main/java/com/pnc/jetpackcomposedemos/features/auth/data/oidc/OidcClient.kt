@@ -94,6 +94,36 @@ class OidcClient @Inject constructor(
 
     }
 
+    suspend fun refresh(user: User): Result<User> {
+        val refreshToken = user.refreshToken
+            ?: return Result.failure(RefreshRejectedException("There is no refresh token."))
+
+        return try {
+            val tokens = authApi.refresh(
+                grantType = "refresh_token",
+                clientId = BuildConfig.OIDC_CLIENT_ID,
+                refreshToken = refreshToken
+            )
+            Result.success(
+                user.copy(
+                    token = tokens.accessToken,
+                    refreshToken = tokens.refreshToken ?: refreshToken,
+                    expiresAtMillis = System.currentTimeMillis() * tokens.expiresIn * 1000
+                )
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: HttpException) {
+            if (e.code() in 400..499) {
+                Result.failure(RefreshRejectedException(describe(e)))
+            } else {
+                Result.failure(IllegalStateException(describe(e), e))
+            }
+        } catch (e: IOException) {
+            Result.failure(IllegalStateException("Could not reach the server.", e))
+        }
+    }
+
     private fun userFrom(tokens: TokenResponse, nonce: String): User {
         val idToken = tokens.idToken
             ?: throw IllegalStateException("The server did not return an ID token.")
@@ -126,3 +156,5 @@ class OidcClient @Inject constructor(
 
     }
 }
+
+class RefreshRejectedException(message: String): Exception(message)
