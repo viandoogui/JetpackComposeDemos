@@ -23,6 +23,7 @@ import com.pnc.jetpackcomposedemos.features.boardmembers.presentation.BoardMembe
 import com.pnc.jetpackcomposedemos.features.boardmembers.presentation.BoardMemberList
 import com.pnc.jetpackcomposedemos.features.orders.presentation.OrdersScreen
 import com.pnc.jetpackcomposedemos.features.todo.presentation.ToDosScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pnc.jetpackcomposedemos.legacy.LegacyArtistList
 
 @Composable
@@ -30,7 +31,7 @@ fun EventPlannerApp(
     viewModel: AuthViewModel = hiltViewModel()
 ) {
 
-    val authState by viewModel.uiState.collectAsState()
+    val authState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val windowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
     val useTwoPaneLayout = windowSizeClass.isWidthAtLeastBreakpoint(

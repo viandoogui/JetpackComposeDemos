@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,10 +39,10 @@ fun ToDosList (
     onToggleCompleted: (ToDo) -> Unit
 ) {
 
-    var showDrawer by remember {
+    var showDrawer by rememberSaveable() {
         mutableStateOf(false)
     }
-    var newText by remember {
+    var newText by rememberSaveable() {
         mutableStateOf("")
     }
 

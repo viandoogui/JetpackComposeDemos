@@ -8,10 +8,11 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class KeystoreCrypto {
+class KeystoreCrypto @Inject constructor() {
     private val alias = "aw_session_key"
 
     private fun key(): SecretKey {

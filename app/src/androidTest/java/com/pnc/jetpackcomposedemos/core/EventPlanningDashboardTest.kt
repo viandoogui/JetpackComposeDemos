@@ -27,7 +27,8 @@ class EventPlanningDashboardTest {
                     onViewArtists = { calls.add("artists") },
                     onViewBoardMembers = { calls.add("board members")},
                     onViewOrders = { calls.add("orders")},
-                    onViewToDos = { calls.add("todos")}
+                    onViewToDos = { calls.add("todos")},
+                    onSignOut = { calls.add("sign out")}
                 )
             }
         }

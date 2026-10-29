@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.CompositionLocalProvider
 
 private val KazooLightColors =
     lightColorScheme(
@@ -104,11 +105,13 @@ fun KazooTheme(
 ) {
     val colorScheme = if (darkTheme) KazooDarkColors else KazooLightColors
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = KazooTypography,
-        shapes = KazooShapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalSpacing provides Spacing()) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = KazooTypography,
+            shapes = KazooShapes,
+            content = content
+        )
+    }
 
 }

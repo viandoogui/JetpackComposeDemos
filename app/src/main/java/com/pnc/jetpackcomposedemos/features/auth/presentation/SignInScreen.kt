@@ -22,13 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onSignIn: (User) -> Unit = {}
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current // used for opening a browser with our app context
 
     Column(
