@@ -8,13 +8,13 @@ import com.pnc.jetpackcomposedemos.features.artists.domain.GetAvailableArtistsUs
 import com.pnc.jetpackcomposedemos.features.artists.domain.RefreshArtistsUseCase
 import com.pnc.jetpackcomposedemos.features.artists.presentation.state.ArtistDirectoryState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.CancellationException
 
 @HiltViewModel
 class ArtistDirectoryViewModel @Inject constructor(
@@ -22,23 +22,26 @@ class ArtistDirectoryViewModel @Inject constructor(
     private val refreshArtists: RefreshArtistsUseCase,
     private val savedStateHandle: SavedStateHandle = SavedStateHandle()
 ): ViewModel() {
+
     // keep the actual mutable state value private
     private val _uiState = MutableStateFlow(
         ArtistDirectoryState(
             genreFilter = savedStateHandle[GENRE_KEY] ?: "",
-            locationFilter = savedStateHandle[LOCATION_KEY] ?: "",
+            locationFilter = savedStateHandle[LOCATION_KEY] ?: ""
         )
     )
 
-    // expose (publicly) a read only view of the state object
+    // expose (publicly) a read-only view of the state object
     val uiState: StateFlow<ArtistDirectoryState> = _uiState.asStateFlow()
 
     init {
+        // establish a subscription to the observable collection
+        // of artists from our Room db
         viewModelScope.launch {
             // by subscribing (collecting) inside the viewModelScope
             // the subscription will be automatically released and disposed
             // when the viewModel is destroyed (i.e. when the user
-            // navigates away from this screen
+            // navigates away from this screen)
             getAvailableArtists().collect { artists ->
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -52,8 +55,8 @@ class ArtistDirectoryViewModel @Inject constructor(
     // loadArtists does not get the data for the view,
     // instead it refreshes the local Room db
     fun loadArtists() {
-        // call an async data loading method in a non-async method
-        if(_uiState.value.isRefreshing) return
+        // call an async data loading method and we are not in an async method
+        if (_uiState.value.isRefreshing) return
 
         viewModelScope.launch {
             _uiState.update { currentState ->
@@ -66,11 +69,10 @@ class ArtistDirectoryViewModel @Inject constructor(
             try {
                 refreshArtists()
                 _uiState.update { it.copy(isRefreshing = false) }
-
             }
-            catch(e: CancellationException) {
+            catch (e: CancellationException) {
                 // NEVER swallow a CancellationException
-                // doing so can orphan the coroutines (suspendable)
+                // doing so can orphan the coroutine (suspendables)
                 throw e
             }
             catch (e: Exception) {
@@ -82,29 +84,22 @@ class ArtistDirectoryViewModel @Inject constructor(
                         errorMessage = e.message ?: "Couldn't refresh artists"
                     )
                 }
-
             }
 
-
         }
-
-
-
     }
 
     fun dismissError() {
         _uiState.update { it.copy(errorMessage = null) }
     }
+
+
     fun updateGenreFilter(genre: String) {
         savedStateHandle[GENRE_KEY] = genre
-        // change the state in a way that prevent race conditions
-        // original value
         _uiState.update { currentState ->
-            // new value may be different if we are waiting for another update to finish
             currentState.copy(
                 genreFilter = genre
             )
-
         }
     }
 
@@ -133,9 +128,10 @@ class ArtistDirectoryViewModel @Inject constructor(
         }
     }
 
-    private companion object {
+    companion object {
         const val GENRE_KEY = "genreFilter"
         const val LOCATION_KEY = "locationFilter"
     }
 
 }
+

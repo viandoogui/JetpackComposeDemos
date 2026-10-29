@@ -82,8 +82,8 @@ class OrdersScreenIntegrationTest {
 
         showScreen()
 
-        waitForText("Order #:1001")
-        composeRule.onNodeWithText("Order #:1002").assertIsDisplayed()
+        waitForText("Order #: 1001")
+        composeRule.onNodeWithText("Order #: 1002").assertIsDisplayed()
         composeRule.onNodeWithText("Road Bike").assertIsDisplayed()
         composeRule.onNodeWithText("Helmet").assertIsDisplayed()
     }
@@ -96,7 +96,7 @@ class OrdersScreenIntegrationTest {
 
         showScreen()
 
-        waitForText("Order #:1001")
+        waitForText("Order #: 1001")
         composeRule.onAllNodesWithText("Customer: Cara Cole").assertCountEquals(2)
     }
 

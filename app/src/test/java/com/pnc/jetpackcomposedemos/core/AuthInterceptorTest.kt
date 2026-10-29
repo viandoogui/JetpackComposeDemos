@@ -1,6 +1,7 @@
 package com.pnc.jetpackcomposedemos.core
 
 import com.pnc.jetpackcomposedemos.BuildConfig
+import com.pnc.jetpackcomposedemos.core.room.AuthInterceptor
 import com.pnc.jetpackcomposedemos.features.auth.data.storage.FakeTokenStore
 import com.pnc.jetpackcomposedemos.features.auth.domain.SessionManager
 import com.pnc.jetpackcomposedemos.features.auth.domain.User

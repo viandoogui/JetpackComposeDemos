@@ -32,7 +32,7 @@ class AuthorizeUrlTest {
         assertEquals("code", url.queryParameter("response_type"))
         assertEquals("my-client", url.queryParameter("client_id"))
         assertEquals("com.example.app:/oauth2redirect", url.queryParameter("redirect_uri"))
-        assertEquals("openid profile", url.queryParameter("scopes"))
+        assertEquals("openid profile", url.queryParameter("scope"))
         assertEquals("the-state", url.queryParameter("state"))
         assertEquals("the-nonce", url.queryParameter("nonce"))
         assertEquals("the-challenge", url.queryParameter("code_challenge"))
