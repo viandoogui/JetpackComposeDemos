@@ -41,7 +41,14 @@ android {
         buildConfigField("String", "OIDC_CLIENT_ID", "\"adventureworks-mobile\"")
     }
 
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     buildTypes {
+        debug {
+            isPseudoLocalesEnabled = true
+        }
         release {
             optimization {
                 enable = false

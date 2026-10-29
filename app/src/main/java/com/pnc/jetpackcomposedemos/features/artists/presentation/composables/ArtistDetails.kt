@@ -16,12 +16,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
+import com.pnc.jetpackcomposedemos.R
 import com.pnc.jetpackcomposedemos.core.LoadableState
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.features.artists.presentation.viewmodels.ArtistDetailsViewModel
@@ -43,7 +45,7 @@ fun ArtistDetails(
             CircularProgressIndicator()
         }
         is LoadableState.Empty -> {
-            Text("Artist not found")
+            Text(stringResource(R.string.artist_not_found))
         }
         is LoadableState.Success -> {
             val artist = (state as LoadableState.Success<Artist>).data // state is general data type, need to cast as success subtype
@@ -68,7 +70,7 @@ fun ArtistDetails(
                 Text(artist.location)
                 AsyncImage(
                     model = "https://kazoopromotions.com${artist.imageUrl}",
-                    contentDescription = "Picture of ${artist.name}",
+                    contentDescription = stringResource(R.string.artist_picture),
                     modifier = Modifier.size(250.dp)
                 )
                 Text(artist.description)
@@ -77,7 +79,7 @@ fun ArtistDetails(
         }
         is LoadableState.Error -> {
             val message = (state as LoadableState.Error).message
-            Text("Error $message",
+            Text(stringResource(R.string.common_error, message),
                 color = MaterialTheme.colorScheme.error)
         }
     }

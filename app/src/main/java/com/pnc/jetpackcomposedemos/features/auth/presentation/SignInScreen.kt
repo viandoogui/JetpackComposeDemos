@@ -22,7 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pnc.jetpackcomposedemos.R
 
 @Composable
 fun SignInScreen(
@@ -43,7 +45,7 @@ fun SignInScreen(
                 CustomTabsIntent.Builder().build().launchUrl(context, url.toUri())
             }
         ) {
-            Text("Sign in")
+            Text(stringResource(R.string.sign_in_button))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -51,7 +53,7 @@ fun SignInScreen(
         // can't use state alone since state is mutable, might change before reaching (use constant instead)
         when (val current = state) {
             SignInState.Idle -> {} // data object, is optional
-            SignInState.InBrowser -> Text("Waiting for the browser...")
+            SignInState.InBrowser -> Text(stringResource(R.string.sign_in_waiting))
             is SignInState.Exchanging -> CircularProgressIndicator()
             is SignInState.Success -> {
                 Text("Welcome, ${current.user.username}")

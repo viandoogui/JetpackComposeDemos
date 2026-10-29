@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pnc.jetpackcomposedemos.R
 
 @Composable
 fun EventPlanningDashboard(
@@ -27,7 +29,7 @@ fun EventPlanningDashboard(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Event Planning Dashboard",
+            text = stringResource(R.string.dashboard_title),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.testTag("dashboard-title")
         )
@@ -36,14 +38,14 @@ fun EventPlanningDashboard(
             modifier = Modifier.fillMaxWidth()
                 .testTag("view-artist-button")
         ) {
-            Text("View Artists")
+            Text(stringResource(R.string.dashboard_view_artists))
         }
         Button(
             onClick = onViewBoardMembers,
             modifier = Modifier.fillMaxWidth()
                 .testTag("view-board-button")
         ) {
-            Text("View Board Members")
+            Text(stringResource(R.string.dashboard_view_board_members))
         }
 
         Button(
@@ -51,7 +53,7 @@ fun EventPlanningDashboard(
             modifier = Modifier.fillMaxWidth()
                 .testTag("view-orders-button")
         ) {
-            Text("View Orders")
+            Text(stringResource(R.string.dashboard_view_orders))
         }
 
         Button(
@@ -59,7 +61,7 @@ fun EventPlanningDashboard(
             modifier = Modifier.fillMaxWidth()
                 .testTag("view-todo-button")
         ) {
-            Text("View To-Dos")
+            Text(stringResource(R.string.dashboard_view_todos))
         }
 
         Button(
@@ -67,7 +69,7 @@ fun EventPlanningDashboard(
             modifier = Modifier.fillMaxWidth()
                 .testTag("sign-out-button")
         ) {
-            Text("Sign out")
+            Text(stringResource(R.string.dashboard_sign_out))
         }
     }
 
