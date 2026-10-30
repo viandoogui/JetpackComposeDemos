@@ -59,6 +59,12 @@
     <string name="todo_completed">Completed</string>
     <string name="todo_not_completed">Not completed</string>
 
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_artists">Artists</string>
+    <string name="nav_todos">To-dos</string>
+    <string name="nav_orders">Orders</string>
+    <string name="nav_settings">Settings</string>
 
     <!-- Orders -->
     <string name="orders_empty">No orders found</string>
@@ -70,4 +76,5 @@
     <string name="order_col_qty">Qty</string>
     <string name="order_col_unit_price">$/per</string>
     <string name="order_col_total">Total</string>
+
 </resources>

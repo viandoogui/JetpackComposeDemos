@@ -11,10 +11,6 @@ import javax.inject.Inject
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class SettingsDataStore
-
 @Singleton
 class DataStoreSettingsRepository @Inject constructor(
     @SettingsDataStore private val dataStore: DataStore<Preferences>

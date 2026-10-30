@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pnc.jetpackcomposedemos.R
+import com.pnc.jetpackcomposedemos.core.settings.LocalAppSettings
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.ui.theme.JetpackComposeDemosTheme
 
@@ -88,9 +89,12 @@ fun ArtistCard(
             Text(
                 stringResource(R.string.artist_genre, artist.genre)
             )
-            Text(
-                stringResource(R.string.artist_location, artist.location)
-            )
+            if (LocalAppSettings.current.showArtistLocation) {
+                Text(
+                    stringResource(R.string.artist_location, artist.location)
+                )
+            }
+
         }
     }
 

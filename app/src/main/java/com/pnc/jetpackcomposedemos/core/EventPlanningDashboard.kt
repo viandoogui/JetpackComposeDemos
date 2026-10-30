@@ -21,7 +21,8 @@ fun EventPlanningDashboard(
     onViewBoardMembers: () -> Unit,
     onViewOrders: () -> Unit,
     onViewToDos: () -> Unit,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    onSettings: () -> Unit
 ) {
 
     Column (
@@ -64,6 +65,14 @@ fun EventPlanningDashboard(
             Text(stringResource(R.string.dashboard_view_todos))
         }
 
+        Button(
+            onClick = onSettings,
+            modifier = Modifier.fillMaxWidth()
+                .testTag("settings-button")
+        ) {
+            Text(stringResource(R.string.dashboard_settings))
+
+        }
         Button(
             onClick = onSignOut,
             modifier = Modifier.fillMaxWidth()

@@ -31,3 +31,6 @@ data object OrdersRoute: EventPlannerRoute
 
 @Serializable
 data object ToDosRoute: EventPlannerRoute
+
+@Serializable
+data object SettingsRoute: EventPlannerRoute
