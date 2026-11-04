@@ -43,9 +43,7 @@ fun EventPlannerApp(
 //                    viewModel.login(user)
 //                }
 //            )
-            SignInScreen(
-                onSignIn = { user -> viewModel.login(user)}
-            )
+
         }
         is AuthState.Authenticated -> {
             AppNavigationShell(navController = navController) {

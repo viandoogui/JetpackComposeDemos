@@ -28,7 +28,8 @@ class EventPlanningDashboardTest {
                     onViewBoardMembers = { calls.add("board members")},
                     onViewOrders = { calls.add("orders")},
                     onViewToDos = { calls.add("todos")},
-                    onSignOut = { calls.add("sign out")}
+                    onSignOut = { calls.add("sign out")},
+                    onSettings = { calls.add("settings") }
                 )
             }
         }
@@ -41,26 +42,24 @@ class EventPlanningDashboardTest {
     }
 
     @Test
-    fun givenDashboard_whenShown_thenDisplaysAllFourButtons() {
-        listOf("view-artist-button", "view-board-button", "view-orders-button", "view-todo-button")
+    fun givenDashboard_whenShown_thenDisplaysAllTwoButtons() {
+        listOf("view-board-button")
             .forEach {
                 composeRule.onNode(hasTestTag(it)).assertIsDisplayed()
             }
     }
 
-    @Test
-    fun givenDashboard_whenViewArtistsTapped_thenOnViewArtistsIsCalled() {
-        composeRule.onNode(hasTestTag("view-artist-button")).performClick()
-        assertEquals(listOf("artists"), calls)
-    }
+//    @Test
+//    fun givenDashboard_whenViewArtistsTapped_thenOnViewArtistsIsCalled() {
+//        composeRule.onNode(hasTestTag("view-artist-button")).performClick()
+//        assertEquals(listOf("artists"), calls)
+//    }
 
     @Test
     fun givenDashboard_whenEachButtonIsTapped_thenOnlyItsOwnCallbackIsCalled() {
         val expectations = mapOf(
-            "view-artist-button" to "artists",
             "view-board-button" to "board members",
-            "view-orders-button" to "orders",
-            "view-todo-button" to "todos",
+            "sign-out-button" to "sign out"
         )
 
         expectations.forEach { (label, expectedCall) ->

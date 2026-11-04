@@ -61,13 +61,9 @@ fun AppNavHost(
         composable<ArtistListRoute> {
             // load the artists from repository or service class
             ArtistDirectoryRoute(
-                onArtistSelected = { artistId ->
-                    navController.navigate(ArtistDetailsRoute(artistId))
-                },
                 onBack = {
                     navController.popBackStack()
-                },
-                useTwoPaneLayout = useTwoPaneLayout
+                }
             )
 
         }
@@ -82,14 +78,6 @@ fun AppNavHost(
                     navController.popBackStack()
                 }
             )
-        }
-
-        composable<ArtistDetailsRoute> { backStackEntry ->
-            val route = backStackEntry.toRoute<ArtistDetailsRoute>()
-            val artistId = route.artistId
-
-            ArtistDetails(artistId = artistId)
-
         }
 
         composable<BoardMemberDetailsRoute> { backStackEntry ->

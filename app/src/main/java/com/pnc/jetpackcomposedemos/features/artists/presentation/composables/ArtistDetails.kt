@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +29,7 @@ import com.pnc.jetpackcomposedemos.core.LoadableState
 import com.pnc.jetpackcomposedemos.features.artists.domain.Artist
 import com.pnc.jetpackcomposedemos.features.artists.presentation.viewmodels.ArtistDetailsViewModel
 import com.pnc.jetpackcomposedemos.ui.theme.JetpackComposeDemosTheme
+import com.pnc.jetpackcomposedemos.ui.theme.LocalSpacing
 
 @Composable
 fun ArtistDetails(
@@ -50,32 +52,37 @@ fun ArtistDetails(
         is LoadableState.Success -> {
             val artist = (state as LoadableState.Success<Artist>).data // state is general data type, need to cast as success subtype
 
-            // fill in content here
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp)) // modifier order matter in composables, if they can interact with each other
-                    .background(Color.LightGray)
-                    .padding(16.dp)
-
+            Surface(
+                shape = RoundedCornerShape(LocalSpacing.current.medium),
+                color = MaterialTheme.colorScheme.surfaceVariant
             ) {
-                Text(
-                    artist.name,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Text(
-                    artist.genre,
-                    color = Color.Gray
-                )
-                Text(artist.location)
-                AsyncImage(
-                    model = "https://kazoopromotions.com${artist.imageUrl}",
-                    contentDescription = stringResource(R.string.artist_picture),
-                    modifier = Modifier.size(250.dp)
-                )
-                Text(artist.description)
 
+                // fill in content here
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(LocalSpacing.current.large),
+                    modifier = Modifier
+                        .padding(LocalSpacing.current.large)
+                ) {
+                    Text(
+                        artist.name,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    Text(
+                        artist.genre,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(artist.location)
+                    AsyncImage(
+                        model = "https://kazoopromotions.com${artist.imageUrl}",
+                        contentDescription = stringResource(R.string.artist_picture),
+                        modifier = Modifier.size(250.dp)
+                            .artistImageSharedElement(artist.id)
+                    )
+                    Text(artist.description)
+
+                }
             }
+
         }
         is LoadableState.Error -> {
             val message = (state as LoadableState.Error).message

@@ -44,8 +44,7 @@ fun ArtistList (
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(LocalSpacing.current.medium)
         ) {
             items(

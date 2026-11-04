@@ -34,44 +34,13 @@ fun EventPlanningDashboard(
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.testTag("dashboard-title")
         )
-        Button(
-            onClick = onViewArtists,
-            modifier = Modifier.fillMaxWidth()
-                .testTag("view-artist-button")
-        ) {
-            Text(stringResource(R.string.dashboard_view_artists))
-        }
+
         Button(
             onClick = onViewBoardMembers,
             modifier = Modifier.fillMaxWidth()
                 .testTag("view-board-button")
         ) {
             Text(stringResource(R.string.dashboard_view_board_members))
-        }
-
-        Button(
-            onClick = onViewOrders,
-            modifier = Modifier.fillMaxWidth()
-                .testTag("view-orders-button")
-        ) {
-            Text(stringResource(R.string.dashboard_view_orders))
-        }
-
-        Button(
-            onClick = onViewToDos,
-            modifier = Modifier.fillMaxWidth()
-                .testTag("view-todo-button")
-        ) {
-            Text(stringResource(R.string.dashboard_view_todos))
-        }
-
-        Button(
-            onClick = onSettings,
-            modifier = Modifier.fillMaxWidth()
-                .testTag("settings-button")
-        ) {
-            Text(stringResource(R.string.dashboard_settings))
-
         }
         Button(
             onClick = onSignOut,

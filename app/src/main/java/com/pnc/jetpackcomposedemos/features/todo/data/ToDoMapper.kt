@@ -7,7 +7,8 @@ object ToDoMapper {
         return ToDo (
             id = entity.id,
             title = entity.title,
-            completed = entity.completed
+            completed = entity.completed,
+            position = entity.position
         )
     }
 
@@ -15,7 +16,8 @@ object ToDoMapper {
         return ToDoEntity(
             id = domain.id,
             title = domain.title,
-            completed = domain.completed
+            completed = domain.completed,
+            position = domain.position
         )
     }
 }

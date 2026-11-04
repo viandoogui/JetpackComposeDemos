@@ -45,7 +45,11 @@ fun ToDosScreen(
                 },
                 onToggleCompleted = { item: ToDo ->
                     viewModel.toggleCompleted(item)
-                }
+                },
+                onDelete = viewModel::deleteToDo,
+                onUndoDelete = viewModel::restoreToDo,
+                onReorder = viewModel::reorder
+
             )
 
         }
