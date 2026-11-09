@@ -7,9 +7,9 @@ import retrofit2.http.Query
 
 interface RemoteMyOrdersDataSource: MyOrdersDataSource {
 
-    @GET("my/customers/{customerId}/orders") // retrofit generates the code for this object
+    @GET("my/customers/{customerId}/orders")
     override suspend fun getOrders(
-        @Path("customerId") customerId: Int,  // normally implicit
+        @Path("customerId") customerId: Int,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
     ): MyOrderResponseDto
