@@ -103,7 +103,7 @@ fun ArtistDetails(
 //        location = "Los Angeles, CA",
 //        imageUrl = "/images/highvoltage.jpg",
 //        description = "This all-female classic rock/heavy metal band will get you up and moving.",
-//        tags = "Heavy Rock,Party,Loud",
+//        isAvailable = true
 //    )
 //
 //    JetpackComposeDemosTheme {
@@ -111,3 +111,4 @@ fun ArtistDetails(
 //            artist = artist
 //        )
 //    }
+//}
