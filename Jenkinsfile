@@ -29,6 +29,18 @@ pipeline {
                 bat "${GRADLE} --version"
             }
         }
+        stage('Unit tests') {
+            steps {
+                catchError(buildResult: "UNSTABLE", stageResult: "UNSTABLE") {
+                    bat "${GRADLE} testDebugUnitTest"
+                }
+            }
+            post {
+                always {
+                    junit testResults: "app/build/test-results/testDebugUnitTest/*.xml", allowEmptyResults: false
+                }
+            }
+        }
         stage('Build debug APK') {
             steps {
                 bat "${GRADLE} assembleDebug"
