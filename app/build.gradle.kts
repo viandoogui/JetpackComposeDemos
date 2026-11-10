@@ -96,7 +96,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.paging.common)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.ui.test.junit4)
     implementation(libs.room.testing)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
