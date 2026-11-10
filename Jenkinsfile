@@ -36,7 +36,7 @@ pipeline {
             post {
                 always {
                     recordIssues enabledForFailure: true,
-                        tools: [androidListParser(pattern: 'app/build/reports/list-results-debug.xml')]
+                        tools: [androidLintParser(pattern: 'app/build/reports/list-results-debug.xml')]
                 }
             }
         }
