@@ -31,12 +31,12 @@ pipeline {
         }
         stage('Android Lint') {
             steps {
-                bat "${GRADLE} listDebug"
+                bat "${GRADLE} lintDebug"
             }
             post {
                 always {
                     recordIssues enabledForFailure: true,
-                        tools: [androidLintParser(pattern: 'app/build/reports/list-results-debug.xml')]
+                        tools: [androidLintParser(pattern: 'app/build/reports/lint-results-debug.xml')]
                 }
             }
         }
