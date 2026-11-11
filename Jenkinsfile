@@ -43,7 +43,7 @@ pipeline {
 
 		stage('Static analysis') {
 			steps {
-				bat "${GRADLE} detekt ktlinkCheck"
+				bat "${GRADLE} detekt ktlintCheck"
 			}
 			post {
 				always {
