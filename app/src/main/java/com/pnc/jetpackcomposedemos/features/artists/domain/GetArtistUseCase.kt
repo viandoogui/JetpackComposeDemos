@@ -1,6 +1,5 @@
 package com.pnc.jetpackcomposedemos.features.artists.domain
 
-import com.pnc.jetpackcomposedemos.features.artists.data.DefaultArtistRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
