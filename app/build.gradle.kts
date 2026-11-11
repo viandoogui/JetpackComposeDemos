@@ -72,6 +72,7 @@ android {
     buildTypes {
         debug {
             isPseudoLocalesEnabled = true
+            enableUnitTestCoverage = true
         }
         release {
             optimization {
