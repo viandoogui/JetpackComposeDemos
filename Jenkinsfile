@@ -52,7 +52,7 @@ pipeline {
 												name: "detekt",
 												pattern: 'app/build/reports/detekt/detekt.xml'),
 							qualityGates: [[threshold: 1, type: 'NEW', unstable: true]]
-					recordIssues enabledForFeailure: true,
+					recordIssues enabledForFailure: true,
 					tool: checkStyle(id: 'ktlint',
 									name: 'ktlint',
 									pattern: 'add/build/reports/ktlint/**/*.xml'
